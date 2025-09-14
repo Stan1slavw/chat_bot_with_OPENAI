@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VGR Feedback — Admin</title>
+    <style>
+        body{font-family:system-ui,Arial,sans-serif;margin:24px}
+        table{width:100%;border-collapse:collapse;margin-top:12px}
+        th,td{border:1px solid #ddd;padding:8px;vertical-align:top}
+        th{background:#f6f6f6}
+        form > *{margin-right:8px}
+        .badge{padding:2px 6px;border-radius:4px;background:#eee}
+    </style>
+</head>
+<body>
+<h2>Відгуки</h2>
+<form method="get" action="/admin/feedback">
+    <input type="text" name="branch" placeholder="Філія" th:value="${branch}">
+    <select name="role">
+        <option th:selected="${role==null}" value="">Будь-яка роль</option>
+        <option th:selected="${role?.name()=='MECHANIC'}" value="MECHANIC">Механік</option>
+        <option th:selected="${role?.name()=='ELECTRICIAN'}" value="ELECTRICIAN">Електрик</option>
+        <option th:selected="${role?.name()=='MANAGER'}" value="MANAGER">Менеджер</option>
+    </select>
+    <input type="number" name="crit" min="1" max="5" placeholder="Критичність" th:value="${crit}">
+    <button type="submit">Фільтрувати</button>
+</form>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Дата</th>
+        <th>Філія / Роль</th>
+        <th>Текст</th>
+        <th>Тональність</th>
+        <th>Критичність</th>
+        <th>Trello</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="f : ${items}">
+        <td th:text="${f.id}"></td>
+        <td th:text="${#dates.format(f.createdAt?.toEpochMilli(), 'yyyy-MM-dd HH:mm')}"></td>
+        <td>
+            <div th:text="${f.profile.branch.name}"></div>
+            <div class="badge" th:text="${f.profile.role}"></div>
+        </td>
+        <td th:text="${f.text}"></td>
+        <td th:text="${f.sentiment}"></td>
+        <td th:text="${f.criticality}"></td>
+        <td><a th:if="${f.trelloCardId!=null}" th:href="${'https://trello.com/c/' + f.trelloCardId}" target="_blank" rel="noreferrer">відкрити</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
