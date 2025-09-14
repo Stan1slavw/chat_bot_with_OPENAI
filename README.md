@@ -45,11 +45,6 @@ TRELLO_KEY=...
 TRELLO_TOKEN=...
 TRELLO_LIST_ID=...
 
-# Admin Basic Auth
-ADMIN_USER=admin
-ADMIN_PASS=admin
-```
-
 ### 3) Run the app
 ```bash
 mvn spring-boot:run
