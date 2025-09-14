@@ -130,7 +130,7 @@ logging.level.com.vgr.feedbackbot=DEBUG
 
 ## Troubleshooting
 - **`/start` does nothing** → remove webhook (`.../deleteWebhook`), verify token via `getMe`, ensure only one app instance is running.  
-- **Always `NEUTRAL / 3`** → OpenAI key missing or quota exceeded; set `OPENAI_ENABLED=false` or provide a valid `OPENAI_API_KEY`.  
+- **Always `NEUTRAL / 3`** → OpenAI key missing or quota exceeded; set a valid `OPENAI_API_KEY`.  
 - **Google Docs 403 `SERVICE_DISABLED`** → enable Docs API in the same GCP project as your service account.  
 - **Google Docs 403 `PERMISSION_DENIED`** → share the Doc with your service account `client_email` as **Editor**.  
 - **`Index must be less than end index`** → use `EndOfSegmentLocation` (already configured).  
